@@ -1,0 +1,26 @@
+{
+  "name": "cyd-contracts",
+  "version": "1.0.0",
+  "description": "Contracts of cypherd",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "test": "npx hardhat test",
+    "interact": "npx hardhat run --network $npm_config_network scripts/interactDeployedContract.ts",
+    "deploy": "npx hardhat run --network $npm_config_network scripts/deploy.ts"
+  },
+  "author": "Joel-Marc",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "@openzeppelin/contracts": "^4.8.0",
+    "dotenv": "^16.0.3",
+    "hardhat": "^2.12.4",
+    "prettier": "^2.8.1",
+    "prettier-plugin-solidity": "^1.1.0"
+  },
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "ethers": "^5.7.2"
+  }
+}
