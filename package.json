@@ -21,6 +21,8 @@
   },
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.1",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "moment": "^2.30.1",
+    "zksync-cli": "^1.5.1"
   }
 }
