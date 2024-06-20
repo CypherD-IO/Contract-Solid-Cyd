@@ -1,6 +1,6 @@
 import { HardhatUserConfig } from "hardhat/config"
 import "@nomicfoundation/hardhat-toolbox"
-import "@nomiclabs/hardhat-ethers"
+import "@nomicfoundation/hardhat-ethers"
 
 import { privateKey } from "./secrets.json"
 
@@ -25,7 +25,7 @@ const config: HardhatUserConfig = {
             accounts: [privateKey],
         },
         POLYGON: {
-            url: "https://polygon.rpc.blxrbdn.com",
+            url: "https://weathered-black-cherry.matic.quiknode.pro/47214a099ef5c415d7643c9708641730618fae60/",
             chainId: 137,
             accounts: [privateKey],
         },
