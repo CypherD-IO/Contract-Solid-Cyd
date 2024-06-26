@@ -1,33 +1,35 @@
 {
-  "name": "cyd-contracts",
-  "version": "1.0.0",
-  "description": "Contracts of cypherd",
-  "main": "index.js",
-  "scripts": {
-    "compile": "npx hardhat compile",
-    "test": "npx hardhat test",
-    "interact": "npx hardhat run --network $npm_config_network scripts/interactDeployedContract.ts",
-    "deploy": "npx hardhat run --network $npm_config_network scripts/deploy.ts"
-  },
-  "author": "Joel-Marc",
-  "license": "ISC",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@openzeppelin/contracts": "^5.0.2",
-    "@types/lodash": "^4.17.1",
-    "dotenv": "^16.0.3",
-    "prettier": "^2.8.1",
-    "prettier-plugin-solidity": "^1.1.0"
-  },
-  "dependencies": {
-    "@nomicfoundation/hardhat-ethers": "^3.0.5",
-    "@safe-global/api-kit": "^2.3.1",
-    "@safe-global/protocol-kit": "^3.1.0",
-    "@safe-global/safe-core-sdk-types": "^4.1.0",
-    "ethers": "^6.7.1",
-    "hardhat": "^2.22.3",
-    "lodash": "^4.17.21",
-    "moment": "^2.30.1",
-    "zksync-cli": "^1.5.1"
-  }
+    "name": "cyd-contracts",
+    "version": "1.0.0",
+    "description": "Contracts of cypherd",
+    "main": "index.js",
+    "scripts": {
+        "compile": "npx hardhat compile",
+        "test": "npx hardhat test",
+        "interact": "npx hardhat run --network $npm_config_network scripts/interactDeployedContract.ts",
+        "deploy": "npx hardhat run --network $npm_config_network scripts/deploy.ts",
+        "deploy-create2": "npx hardhat ignition deploy ignition/modules/deployWithCreate2.ts --network $npm_config_network --strategy create2"
+    },
+    "author": "Joel-Marc",
+    "license": "ISC",
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+        "@openzeppelin/contracts": "^5.0.2",
+        "@types/lodash": "^4.17.1",
+        "dotenv": "^16.0.3",
+        "prettier": "^2.8.1",
+        "prettier-plugin-solidity": "^1.1.0"
+    },
+    "dependencies": {
+        "@nomicfoundation/hardhat-ethers": "^3.0.5",
+        "@openzeppelin/cli": "^2.8.2",
+        "@safe-global/api-kit": "^2.3.1",
+        "@safe-global/protocol-kit": "^3.1.0",
+        "@safe-global/safe-core-sdk-types": "^4.1.0",
+        "ethers": "^6.7.1",
+        "hardhat": "^2.22.3",
+        "lodash": "^4.17.21",
+        "moment": "^2.30.1",
+        "zksync-cli": "^1.5.1"
+    }
 }
