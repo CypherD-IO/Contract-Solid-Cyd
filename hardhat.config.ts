@@ -3,6 +3,7 @@ import "@nomicfoundation/hardhat-toolbox"
 import "@nomicfoundation/hardhat-ethers"
 
 import { privateKey } from "./secrets.json"
+import { id } from "ethers"
 
 const config: HardhatUserConfig = {
     solidity: {
@@ -88,6 +89,14 @@ const config: HardhatUserConfig = {
             url: "https://moonriver.public.blastapi.io",
             chainId: 1285,
             accounts: [privateKey],
+        },
+    },
+    ignition: {
+        strategyConfig: {
+            create2: {
+                // To learn more about salts, see the CreateX documentation
+                salt: id("cypher"),
+            },
         },
     },
 }

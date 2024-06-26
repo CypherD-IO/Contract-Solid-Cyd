@@ -6,6 +6,7 @@ typechain
 typechain-types
 secrets.json
 package-lock.json
+ignition/deployments
 
 # Hardhat files
 cache
