@@ -46,7 +46,7 @@ const config: HardhatUserConfig = {
             accounts: [privateKey],
         },
         ARBITRUM: {
-            url: "https://arb-mainnet-public.unifra.io",
+            url: "https://rpc.ankr.com/arbitrum",
             chainId: 42161,
             accounts: [privateKey],
         },
@@ -95,7 +95,7 @@ const config: HardhatUserConfig = {
         strategyConfig: {
             create2: {
                 // To learn more about salts, see the CreateX documentation
-                salt: id("cypher"),
+                salt: id("cypher-evm-autoload"),
             },
         },
     },
