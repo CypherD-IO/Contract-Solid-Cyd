@@ -89,15 +89,6 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         _unpause();
     }
 
-    function safeTransfer(
-        IERC20 token,
-        address userAddress,
-        address beneficiaryAddress,
-        uint amount
-    ) external {
-        token.safeTransferFrom(userAddress, beneficiaryAddress, amount);
-    }
-
     /**
      * @notice Debit tokens from a user's account and transfer to a beneficiary.
      * @dev Only the EXECUTIONER_ROLE can call this function.
@@ -125,16 +116,8 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
 
         IERC20 token = IERC20(tokenAddress);
 
-        try this.safeTransfer(token, userAddress, beneficiaryAddress, amount) {
-            emit Withdraw(
-                tokenAddress,
-                userAddress,
-                beneficiaryAddress,
-                amount
-            );
-            return true;
-        } catch {
-            revert("Token transfer failed");
-        }
+        token.safeTransferFrom(userAddress, beneficiaryAddress, amount);
+        emit Withdraw(tokenAddress, userAddress, beneficiaryAddress, amount);
+        return true;
     }
 }
