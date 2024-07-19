@@ -46,7 +46,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
     }
 
     modifier checkWithdrawalLimit(address tokenAddress, uint amount) {
-        require(amount > 0, "Amount must be greater than zero");
+        require(amount != 0, "Amount must be greater than zero");
 
         IERC20Metadata token = IERC20Metadata(tokenAddress);
         uint decimalFactor = 10 ** uint(token.decimals());
@@ -57,7 +57,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         _;
     }
 
-    modifier anyPrivilagedUser() {
+    modifier anyPrivilegedUser() {
         bool authorized = false;
 
         if (hasRole(EXECUTIONER_ROLE, _msgSender())) {
@@ -81,7 +81,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         return _maxWithdrawalLimitPerTransaction;
     }
 
-    function pause() external whenNotPaused anyPrivilagedUser {
+    function pause() external whenNotPaused anyPrivilegedUser {
         _pause();
     }
 
