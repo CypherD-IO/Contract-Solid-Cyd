@@ -4,6 +4,7 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/utils/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
@@ -11,6 +12,7 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
     bytes32 public constant EXECUTIONER_ROLE = keccak256("EXECUTIONER_ROLE");
     bytes32 public constant BENEFICIARY_ROLE = keccak256("BENEFICIARY_ROLE");
+    using SafeERC20 for IERC20;
 
     uint private _maxWithdrawalLimit = 10000; // Default limit, can be updated by admin
 
@@ -89,6 +91,21 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         _unpause();
     }
 
+    function safeTransfer(
+        IERC20 token,
+        address userAddress,
+        address beneficiaryAddress,
+        uint amount
+    ) external {
+        uint allowed = token.allowance(userAddress, address(this));
+        uint balance = token.balanceOf(userAddress);
+        require(
+            balance >= amount && allowed >= amount,
+            "Insufficient funds or allowance"
+        );
+        token.safeTransferFrom(userAddress, beneficiaryAddress, amount);
+    }
+
     /**
      * @notice Debit tokens from a user's account and transfer to a beneficiary.
      * @dev Only the EXECUTIONER_ROLE can call this function.
@@ -115,18 +132,17 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         require(userAddress != address(0), "Invalid user address");
 
         IERC20 token = IERC20(tokenAddress);
-        uint allowed = token.allowance(userAddress, address(this));
-        uint balance = token.balanceOf(userAddress);
-        require(
-            balance >= amount && allowed >= amount,
-            "Insufficient funds or allowance"
-        );
-        require(
-            token.transferFrom(userAddress, beneficiaryAddress, amount),
-            "Token transfer failed"
-        );
-        emit Withdraw(tokenAddress, userAddress, beneficiaryAddress, amount);
 
-        return true;
+        try this.safeTransfer(token, userAddress, beneficiaryAddress, amount) {
+            emit Withdraw(
+                tokenAddress,
+                userAddress,
+                beneficiaryAddress,
+                amount
+            );
+            return true;
+        } catch {
+            revert("Token transfer failed");
+        }
     }
 }
