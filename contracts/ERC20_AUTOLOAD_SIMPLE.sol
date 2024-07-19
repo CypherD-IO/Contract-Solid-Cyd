@@ -39,10 +39,6 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
 
     modifier checkBeneficiaryRole(address beneficiaryAddress) {
         require(
-            beneficiaryAddress != address(0),
-            "Invalid beneficiary address"
-        );
-        require(
             hasRole(BENEFICIARY_ROLE, beneficiaryAddress),
             "Provided address does not have beneficiary role"
         );
@@ -50,7 +46,6 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
     }
 
     modifier checkWithdrawalLimit(address tokenAddress, uint amount) {
-        require(tokenAddress != address(0), "Invalid token address");
         require(amount > 0, "Amount must be greater than zero");
 
         IERC20Metadata token = IERC20Metadata(tokenAddress);
