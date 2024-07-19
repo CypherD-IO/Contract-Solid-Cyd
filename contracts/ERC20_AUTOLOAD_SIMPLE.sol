@@ -14,7 +14,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
     bytes32 public constant BENEFICIARY_ROLE = keccak256("BENEFICIARY_ROLE");
     using SafeERC20 for IERC20;
 
-    uint private _maxWithdrawalLimit = 10000; // Default limit, can be updated by admin
+    uint private _maxWithdrawalLimitPerTransaction = 10000; // Default limit, can be updated by admin
 
     event Withdraw(
         address indexed token,
@@ -56,7 +56,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         IERC20Metadata token = IERC20Metadata(tokenAddress);
         uint decimalFactor = 10 ** uint(token.decimals());
         require(
-            amount <= _maxWithdrawalLimit * decimalFactor,
+            amount <= _maxWithdrawalLimitPerTransaction * decimalFactor,
             "Withdrawal amount exceeds limit"
         );
         _;
@@ -78,12 +78,12 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
     function setMaxWithdrawalLimit(
         uint newLimit
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
-        _maxWithdrawalLimit = newLimit;
+        _maxWithdrawalLimitPerTransaction = newLimit;
         emit MaxWithdrawalLimit(_msgSender(), newLimit);
     }
 
     function getMaxWithdrawalLimit() external view returns (uint) {
-        return _maxWithdrawalLimit;
+        return _maxWithdrawalLimitPerTransaction;
     }
 
     function pause() external whenNotPaused anyPrivilagedUser {
