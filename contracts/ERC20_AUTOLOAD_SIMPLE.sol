@@ -95,12 +95,6 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         address beneficiaryAddress,
         uint amount
     ) external {
-        uint allowed = token.allowance(userAddress, address(this));
-        uint balance = token.balanceOf(userAddress);
-        require(
-            balance >= amount && allowed >= amount,
-            "Insufficient funds or allowance"
-        );
         token.safeTransferFrom(userAddress, beneficiaryAddress, amount);
     }
 
