@@ -23,6 +23,8 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         uint amount
     );
 
+    event MaxWithdrawalLimit(address indexed caller, uint newLimit);
+
     constructor(
         address _defaultAdmin,
         address _executioner,
@@ -77,6 +79,7 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
         uint newLimit
     ) external onlyRole(DEFAULT_ADMIN_ROLE) {
         _maxWithdrawalLimit = newLimit;
+        emit MaxWithdrawalLimit(_msgSender(), newLimit);
     }
 
     function getMaxWithdrawalLimit() external view returns (uint) {
