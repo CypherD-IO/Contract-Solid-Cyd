@@ -25,12 +25,8 @@ contract CypherAutoLoad is Pausable, AccessControl, ReentrancyGuard {
 
     event MaxWithdrawalLimit(address indexed caller, uint newLimit);
 
-    constructor(
-        address _defaultAdmin,
-        address _executioner,
-        address _beneficiary
-    ) {
-        _grantRole(DEFAULT_ADMIN_ROLE, _defaultAdmin);
+    constructor(address _executioner, address _beneficiary) {
+        _grantRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _grantRole(EXECUTIONER_ROLE, _executioner);
         _setRoleAdmin(EXECUTIONER_ROLE, DEFAULT_ADMIN_ROLE);
         _grantRole(BENEFICIARY_ROLE, _beneficiary);
