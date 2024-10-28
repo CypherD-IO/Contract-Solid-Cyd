@@ -13,6 +13,7 @@
     "author": "Joel-Marc",
     "license": "ISC",
     "devDependencies": {
+        "@nomicfoundation/hardhat-ledger": "^1.0.3",
         "@nomicfoundation/hardhat-toolbox": "^5.0.0",
         "@openzeppelin/contracts": "^5.0.2",
         "@types/lodash": "^4.17.1",
