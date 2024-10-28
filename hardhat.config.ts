@@ -1,9 +1,13 @@
 import { HardhatUserConfig } from "hardhat/config"
 import "@nomicfoundation/hardhat-toolbox"
 import "@nomicfoundation/hardhat-ethers"
+import "@nomicfoundation/hardhat-ledger"
 
 import { privateKey } from "./secrets.json"
 import { id } from "ethers"
+
+// Comment the accounts and add ledger accounts to deploy with ledger
+// ledgerAccounts: ["0xa809931e3b38059adae9bc5455bc567d0509ab92"]
 
 const config: HardhatUserConfig = {
     solidity: {
@@ -29,6 +33,7 @@ const config: HardhatUserConfig = {
             url: "https://weathered-black-cherry.matic.quiknode.pro/47214a099ef5c415d7643c9708641730618fae60/",
             chainId: 137,
             accounts: [privateKey],
+            // ledgerAccounts: ["0xa809931e3b38059adae9bc5455bc567d0509ab92"], // comment the accounts above and add ledger accounts to deploy with ledger
         },
         AVALANCHE: {
             url: "https://rpc.ankr.com/avalanche",
