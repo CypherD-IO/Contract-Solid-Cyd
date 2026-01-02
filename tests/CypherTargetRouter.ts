@@ -17,7 +17,7 @@ import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
  * 
  * Test data mirrors production structure:
  * - Programs: CB2B, CYPHER_CARD, MW, OSMOSIS
- * - Providers: pc (production client), rc (receiving client)
+ * - Providers: pc, rc
  * - Chains: ETH, NOBLE, OSMOSIS, SOLANA, TRON
  */
 describe("CypherTargetRouter", function () {
@@ -39,8 +39,8 @@ describe("CypherTargetRouter", function () {
      * Providers (client types)
      */
     const PROVIDERS = {
-        PC: "pc",  // Production client
-        RC: "rc"   // Receiving client
+        PC: "pc",
+        RC: "rc"
     } as const;
 
     /**
@@ -55,8 +55,7 @@ describe("CypherTargetRouter", function () {
     } as const;
 
     /**
-     * Sample target addresses for different chain types
-     * Using realistic address formats per chain
+     * Sample target addresses
      */
     const SAMPLE_TARGETS = {
         // EVM-compatible addresses (ETH, etc.)
