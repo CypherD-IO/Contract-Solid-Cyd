@@ -1,40 +1,32 @@
-# Contracts of Cyd
+# Cyd Contracts
 
-This repo contains various contracts written for specific purposes.
+Smart contracts for the Cyd ecosystem.
 
--   [ERC20_AGGREGATOR](./contracts/ERC20_AGGREGATOR.sol) is used to aggregate the balances of the whitelisted erc20 contracts in the respective chains.
--   [ERC721_AGGREGATOR](./contracts/ERC721_AGGREGATOR.sol) is used to aggregate the owneship of an address of whitelisted erc721 contracts in the respective chains.
+## Contracts
 
-## ERC20_AUTOLOAD_SIMPLE.sol
+| Contract                  | Description                                             |
+| ------------------------- | ------------------------------------------------------- |
+| `BalanceAggregator`       | Aggregates ERC20 balances across whitelisted tokens     |
+| `ERC721_AGGREGATOR`       | Aggregates NFT ownership across whitelisted collections |
+| `ERC20_AUTOLOAD_SIMPLE`   | Autoload functionality for ERC20 tokens                 |
+| `ERC20_AUTOLOAD_EXTENDED` | Extended autoload with additional features              |
+| `CypherTargetRouter`      | Router for Cypher target operations                     |
 
--   This contract is audited by Oak Security. [Cypher EVM Autoload Audit Report](https://github.com/oak-security/audit-reports/blob/main/Cypher%20Wallet/2024-08-08%20Audit%20Report%20-%20Cypher%20Autoload%20Simple%20v1.0.pdf)
+### Audits
 
-## To setup HardHat
+-   **ERC20_AUTOLOAD_SIMPLE** — Audited by Oak Security: [Audit Report](https://github.com/oak-security/audit-reports/blob/main/Cypher%20Wallet/2024-08-08%20Audit%20Report%20-%20Cypher%20Autoload%20Simple%20v1.0.pdf)
 
-```shell
+## Setup
+
+```bash
 npm install
 ```
 
-## Other Operations
+## Commands
 
-```shell
-# To run tests
-npm test
-
-# To compile and create artifacts before deploying
-npm run compile
-
-# To deploy to the network (should be specified in the hardhat.config.ts). i.e:
-npm run deploy --network=evmos
-
-# To interact with the deployed contract. i.e:
-npm run interact --network=evmos
+```bash
+npm run compile              # Compile contracts
+npm test                     # Run tests
+npm run deploy --network=<network>   # Deploy contracts
+npm run deploy-balance-aggregator    # Deploy BalanceAggregator
 ```
-
-## TO-DO
-
--   Upgradable SmartContract support: [https://docs.openzeppelin.com/learn/upgrading-smart-contracts](https://docs.openzeppelin.com/learn/upgrading-smart-contracts)
-
-## USEFUL Links
-
--   [https://docs.openzeppelin.com/learn/deploying-and-interacting](https://docs.openzeppelin.com/learn/deploying-and-interacting)
