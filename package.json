@@ -8,7 +8,8 @@
         "test": "npx hardhat test",
         "interact": "npx hardhat run --network $npm_config_network scripts/interactDeployedContract.ts",
         "deploy": "npx hardhat run --network $npm_config_network scripts/deploy.ts",
-        "deploy-create2": "npx hardhat ignition deploy ignition/modules/deployWithCreate2.ts --network $npm_config_network --strategy create2"
+        "deploy-create2": "npx hardhat ignition deploy ignition/modules/deployWithCreate2.ts --network $npm_config_network --strategy create2",
+        "deploy-balance-aggregator": "npx ts-node scripts/deployBalanceAggregator.ts"
     },
     "author": "Joel-Marc",
     "license": "ISC",
