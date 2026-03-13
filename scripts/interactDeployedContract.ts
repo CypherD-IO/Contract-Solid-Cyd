@@ -1,5 +1,7 @@
-import { ethers } from "hardhat";
+import hre from "hardhat";
 import moment from 'moment';
+
+const { ethers } = await hre.network.connect();
 
 async function main() {
 

@@ -18,15 +18,36 @@ Smart contracts for the Cyd ecosystem.
 
 ## Setup
 
+Use Node.js 22+ (see `.nvmrc`), then install dependencies:
+
 ```bash
 npm install
+```
+
+Add your explorer API key to `.env` if you want automatic verification on supported chains:
+
+```bash
+ETHERSCAN_API_KEY=your_api_key_here
 ```
 
 ## Commands
 
 ```bash
 npm run compile              # Compile contracts
-npm test                     # Run tests
+npm test                     # Run Mocha tests from tests/
 npm run deploy --network=<network>   # Deploy contracts
+npm run deploy-create2 --network=<network>   # Deploy the module referenced by ignition/modules/deployWithCreate2.ts with Create2 and verify
 npm run deploy-balance-aggregator    # Deploy BalanceAggregator
 ```
+
+## Create2 Deployment
+
+`npm run deploy-create2` always deploys whatever module is re-exported from `ignition/modules/deployWithCreate2.ts`.
+
+For example:
+
+```ts
+export { default } from "./deploy7702SwapExecutor"
+```
+
+If you later add a module like `deploy7702SwapAggregator.ts`, just change that one line in `deployWithCreate2.ts` and keep using the same command.
