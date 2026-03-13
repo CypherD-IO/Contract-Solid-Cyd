@@ -1,8 +1,10 @@
 import { expect } from "chai";
-import { ethers } from "hardhat";
-import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { CypherTargetRouter } from "../typechain-types";
-import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
+import { network } from "hardhat";
+import type { CypherTargetRouter } from "../typechain-types/index.js";
+import type { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/types";
+
+const { ethers, networkHelpers } = await network.connect();
+const { loadFixture } = networkHelpers;
 
 /**
  * CypherTargetRouter Test Suite
@@ -422,7 +424,7 @@ describe("CypherTargetRouter", function () {
 
             // Empty array should succeed without setting anything
             await expect(router.connect(owner).setTargets([]))
-                .to.not.be.reverted;
+                .to.not.revert(ethers);
             
             console.log(`      [Test] Empty array handled gracefully`);
         });
@@ -585,7 +587,7 @@ describe("CypherTargetRouter", function () {
             // Using a non-existent program/provider/chain combination
             await expect(
                 router.connect(owner).removeTarget(PROGRAMS.MW, PROVIDERS.PC, CHAINS.SOLANA)
-            ).to.not.be.reverted;
+            ).to.not.revert(ethers);
 
             // Event should still be emitted
             await expect(
@@ -648,7 +650,7 @@ describe("CypherTargetRouter", function () {
             // New owner should be able to setTarget
             await expect(
                 router.connect(otherAccount).setTarget(PROGRAM, PROVIDER, CHAIN, TARGET)
-            ).to.not.be.reverted;
+            ).to.not.revert(ethers);
 
             // Verify it worked
             const storedTarget = await router.targets(PROGRAM, PROVIDER, CHAIN);

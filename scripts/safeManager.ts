@@ -1,4 +1,4 @@
-import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
+import type { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/types";
 import Safe, { EthersAdapter } from "@safe-global/protocol-kit";
 import SafeApiKit from "@safe-global/api-kit";
 import { MetaTransactionData, SafeSignature, SafeTransaction, SafeTransactionDataPartial } from "@safe-global/safe-core-sdk-types";
@@ -6,7 +6,9 @@ import { get } from 'lodash'
 
 // ensure you're using ethers v5 as ethers v6 is not currently supported by @safe-global
 // you don't have to use hardhat ethers if you're not in a hardhat project, instead import ethers directly
-import { ethers } from "hardhat";
+import hre from "hardhat";
+
+const { ethers } = await hre.network.connect();
 
 // chain specific config:
 enum SupportedChainId {
@@ -38,11 +40,11 @@ export class SafeManager {
   private ethAdapter: EthersAdapter;
   private safeService?: SafeApiKit;
   private safe?: Safe;
-  private signer: SignerWithAddress;
+  private signer: HardhatEthersSigner;
   private gasRefundFraction: number | undefined;
   private maxGasPerTx: number | undefined;
 
-  constructor(signer: SignerWithAddress) {
+  constructor(signer: HardhatEthersSigner) {
     this.signer = signer;
     this.ethAdapter = new EthersAdapter({
       ethers,

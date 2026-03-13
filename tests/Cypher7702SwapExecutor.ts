@@ -1,7 +1,9 @@
 import { expect } from "chai";
-import { ethers } from "hardhat";
-import { loadFixture, time } from "@nomicfoundation/hardhat-toolbox/network-helpers";
-import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
+import { network } from "hardhat";
+import type { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/types";
+
+const { ethers, networkHelpers } = await network.connect();
+const { loadFixture, time } = networkHelpers;
 
 /**
  * Cypher7702SwapExecutor + NonceTracker Integration Tests
